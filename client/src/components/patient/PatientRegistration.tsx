@@ -18,7 +18,6 @@ interface PatientRegistrationProps {
 
 const PatientRegistration: React.FC<PatientRegistrationProps> = ({ 
   onRegistrationComplete,
-  onCancel
 }) => {
   const { toast } = useToast();
   const [newPatient, setNewPatient] = useState<Partial<Patient>>({
@@ -94,7 +93,7 @@ const PatientRegistration: React.FC<PatientRegistrationProps> = ({
   };
 
   return (
-    <Card className="w-full">
+    <Card className="w-full max-w-2xl mx-auto  shadow-lg sm:rounded-lg sm:p-8 p-4">
       <CardHeader>
         <CardTitle className="flex items-center">
           <Plus className="h-5 w-5 mr-2 text-primary" />
@@ -102,7 +101,7 @@ const PatientRegistration: React.FC<PatientRegistrationProps> = ({
         </CardTitle>
         <CardDescription>Add a new patient to the healthcare system</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent  className="overflow-y-auto max-h-[50vh]">
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Photo Upload Section */}
           <div className="flex justify-center mb-6">
@@ -224,10 +223,6 @@ const PatientRegistration: React.FC<PatientRegistrationProps> = ({
             />
           </div>
           <div className="flex justify-end gap-2 pt-4">
-            <Button type="button" variant="outline" onClick={onCancel}>
-              <X className="h-4 w-4 mr-2" />
-              Cancel
-            </Button>
             <Button type="submit">
               <Plus className="h-4 w-4 mr-2" />
               Register Patient
