@@ -1,9 +1,15 @@
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff, Mail, User } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -11,20 +17,17 @@ import { Separator } from "@/components/ui/separator";
 import { useAuthStore } from "../store/useAuthStore";
 import { toast } from "@/components/ui/sonner";
 
-
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-    const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     password: "",
-    role:"",
-    department: "",
-    specialty: "",
-
+    role: "Cardiologist",
+    department: "Cardiology",
+    specialty: "Interventional Cardiology",
   });
-
 
   const { signup, isSigningUp } = useAuthStore();
 
@@ -40,19 +43,16 @@ const SignUp = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     const success = validateForm();
-
     if (success === true) signup(formData);
   };
-
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-background">
       <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div>
-      
+
       <Card className="w-full max-w-md border-border shadow-lg">
         <CardHeader className="space-y-1 text-center">
           <CardTitle className="text-2xl font-bold tracking-tight">Create an account</CardTitle>
@@ -60,15 +60,16 @@ const SignUp = () => {
             Enter your information to create your account
           </CardDescription>
         </CardHeader>
+
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="fullName">Full Name</Label>
               <div className="relative">
-                <Input 
-                  id="fullName" 
-                  type="text" 
-                  placeholder="John Doe" 
+                <Input
+                  id="fullName"
+                  type="text"
+                  placeholder="John Doe"
                   value={formData.fullName}
                   onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                   className="pl-10"
@@ -77,13 +78,14 @@ const SignUp = () => {
                 <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               </div>
             </div>
+
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <div className="relative">
-                <Input 
-                  id="email" 
-                  type="email" 
-                  placeholder="name@example.com" 
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="name@example.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="pl-10"
@@ -92,20 +94,52 @@ const SignUp = () => {
                 <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               </div>
             </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="role">Role</Label>
+              <Input
+                id="role"
+                type="text"
+                value={formData.role}
+                onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="department">Department</Label>
+              <Input
+                id="department"
+                type="text"
+                value={formData.department}
+                onChange={(e) => setFormData({ ...formData, department: e.target.value })}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="specialty">Specialty</Label>
+              <Input
+                id="specialty"
+                type="text"
+                value={formData.specialty}
+                onChange={(e) => setFormData({ ...formData, specialty: e.target.value })}
+              />
+            </div>
+
+            {/* PASSWORD FIELD MOVED TO LAST */}
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <div className="relative">
-                <Input 
-                  id="password" 
-                  type={showPassword ? "text" : "password"} 
-                  placeholder="Create a strong password" 
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Create a strong password"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   className="pl-10"
                   required
                 />
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   className="absolute right-3 top-3 text-muted-foreground"
                   onClick={() => setShowPassword(!showPassword)}
                 >
@@ -120,11 +154,12 @@ const SignUp = () => {
                 Password must be at least 8 characters long
               </p>
             </div>
-            <Button type="submit" className="w-full">
-              Create account
+
+            <Button type="submit" className="w-full" disabled={isSigningUp}>
+              {isSigningUp ? "Creating..." : "Create account"}
             </Button>
           </form>
-          
+
           <div className="relative my-4">
             <Separator />
             <div className="absolute inset-0 flex items-center justify-center">
@@ -133,16 +168,13 @@ const SignUp = () => {
               </span>
             </div>
           </div>
-          
+
           <div className="grid grid-cols-2 gap-3">
-            <Button variant="outline" className="w-full">
-              Google
-            </Button>
-            <Button variant="outline" className="w-full">
-              Microsoft
-            </Button>
+            <Button variant="outline" className="w-full">Google</Button>
+            <Button variant="outline" className="w-full">Microsoft</Button>
           </div>
         </CardContent>
+
         <CardFooter className="flex justify-center">
           <p className="text-center text-sm text-muted-foreground">
             Already have an account?{" "}

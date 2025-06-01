@@ -6,27 +6,30 @@ import ThemeToggle from './ThemeToggle';
 import NotificationPanel from './notifications/NotificationPanel';
 import UserProfile from './profiles/UserProfile';
 import { useNotifications } from '../contexts/NotificationContext';
+import { useAuthStore } from "../store/useAuthStore";
 
 interface HeaderProps {
   title?: string;
 }
 
 const Header: React.FC<HeaderProps> = ({ title = "PHMS" }) => {
+    const {authUser, logout} = useAuthStore();
+
   const { notifications, markAsRead, markAllAsRead } = useNotifications();
   
   const currentUser = {
-    id: "current-user",
-    name: "Dr. Tamirat Kebede",
-    email: "tamirat.kebede@codoctor.com",
-    role: "Cardiologist",
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-    department: "Cardiology",
-    specialty: "Interventional Cardiology"
+    id: authUser?.id || "1",
+    name: authUser?.fullName || "Tamirat Kebede",
+    email: authUser?.email || "",
+    role: authUser?.role || "Cardiologist",
+    avatar: authUser?.avatarUrl || "https://avatars.githubusercontent.com/u/12345678?v=4",
+    department: authUser?.department || "Cardiology",
+    specialty: authUser?.specialty || "Interventional Cardiology",
   };
 
   const handleLogout = () => {
-    console.log("User logged out");
-    // In a real app, this would handle token removal, etc.
+    logout();
+ 
   };
 
   return (

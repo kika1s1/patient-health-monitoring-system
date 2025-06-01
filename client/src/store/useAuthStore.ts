@@ -6,8 +6,13 @@ import { toast } from "@/components/ui/sonner";
 // Types
 interface AuthUser {
   id: string;
-  name: string;
+  fullName: string;
   email: string;
+  role: string;
+  department: string;
+  specialty: string;
+  avatarUrl?: string; // Optional field for user avatar
+
   // Add more fields as needed
 }
 

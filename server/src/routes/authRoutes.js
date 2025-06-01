@@ -10,7 +10,7 @@ router.post("/login", login);
 
 router.get("/check", protectedRoute, checkAuth);
 
-router.get("/logout", protectedRoute, logout);
+router.post("/logout", protectedRoute, logout);
 
 
 
