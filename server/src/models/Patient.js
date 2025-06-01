@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const patientSchema = new mongoose.Schema(
   {
@@ -6,12 +6,13 @@ const patientSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-    dateOfBirth: {
-      type: Date,
+    avatar: {
+      type: String,
+      default: "https://randomuser.me/api/portraits/lego/1.jpg", // Default avatar URL
     },
     gender: {
       type: String,
-      enum: ['Male', 'Female', 'Other'],
+      enum: ["Male", "Female", "Other"],
     },
     contactInfo: {
       phone: {
@@ -31,7 +32,7 @@ const patientSchema = new mongoose.Schema(
       trim: true,
     },
     emergencyContact: {
-      name: {
+      fullName: {
         type: String,
         trim: true,
       },
@@ -46,14 +47,11 @@ const patientSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['normal', 'warning', 'critical'],
-      default: 'normal',
+      enum: ["normal", "warning", "critical"],
+      default: "normal",
     },
     location: {
       address: String, // e.g., "123 Main St, Springfield, IL, USA" or specific facility name
-      city: String,
-      state: String,
-      zipCode: String,
       coordinates: {
         latitude: Number,
         longitude: Number,
@@ -62,14 +60,22 @@ const patientSchema = new mongoose.Schema(
         type: Boolean,
         default: false,
       },
-      age: {
-        type: Number,
-        min: 0, // Ensures age is a non-negative number
-      },
-      additionalInfo: {
-        type: String,
-        trim: true,
-      },
+    },
+    age: {
+      type: Number,
+      min: 0, // Ensures age is a non-negative number
+    },
+    condition: {
+      type: String,
+      
+    },
+    additionalInfo: {
+      type: String,
+      trim: true,
+    },
+    room: {
+      type: String,
+      trim: true,
     },
   },
   {
@@ -77,10 +83,8 @@ const patientSchema = new mongoose.Schema(
   }
 );
 
-// Indexing common query fields
-patientSchema.index({ name: 'text', 'contactInfo.phone': 1 });
-patientSchema.index({ status: 1 });
 
-const Patient = mongoose.model('Patient', patientSchema);
+
+const Patient = mongoose.model("Patient", patientSchema);
 
 export default Patient;

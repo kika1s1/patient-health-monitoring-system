@@ -10,7 +10,7 @@ import { Patient } from "@/utils/dummyData";
 import { Plus, Save, X, Upload, Camera } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
+import {usePatientStore} from "../../store/usePatientStore";
 interface PatientRegistrationProps {
   onRegistrationComplete: (newPatient: Patient) => void;
   onCancel: () => void;
@@ -19,6 +19,7 @@ interface PatientRegistrationProps {
 const PatientRegistration: React.FC<PatientRegistrationProps> = ({ 
   onRegistrationComplete,
 }) => {
+  const { createPatient } = usePatientStore();
   const { toast } = useToast();
   const [newPatient, setNewPatient] = useState<Partial<Patient>>({
     name: '',
@@ -76,13 +77,13 @@ const PatientRegistration: React.FC<PatientRegistrationProps> = ({
       return;
     }
 
-    // Generate a unique ID
-    const patientId = `pat-${Date.now()}`;
     
     const completePatient = {
-      id: patientId,
       ...newPatient
     } as Patient;
+    console.log("Registering patient:", completePatient);
+    
+    createPatient(completePatient);
 
     onRegistrationComplete(completePatient);
     

@@ -11,17 +11,10 @@ export interface Patient {
   additionalInfo?: string;
   location?: {
     address: string;
-    city: string;
-    state: string;
-    zipCode: string;
     coordinates: { lat: number; lng: number };
     inHospital: boolean;
   };
-  recentVisits?: Array<{
-    date: string;
-    reason: string;
-    doctor: string;
-  }>;
+  
 }
 
 export interface VitalSign {

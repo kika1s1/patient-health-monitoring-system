@@ -1,60 +1,59 @@
 import Patient from '../models/Patient.js';
-import User from '../models/User.js'; // Needed for linking patient to a user
 
 // @desc    Create a new patient profile
 // @route   POST /api/v1/patients
 // @access  Private (Requires admin or doctor role - to be enforced by authorize middleware in routes)
-export const createPatient = async (req, res) => {
+export const createPatient = async (req, res, next) => {
   const {
     name,
-    dateOfBirth,
+    age,
     gender,
     contactInfo,
     medicalHistorySummary,
     emergencyContact,
     status,
     location,
+    room,
+    condition,
+    additionalInfo
   } = req.body;
 
   try {
     const patient = new Patient({
-      name,
-      dateOfBirth,
+      fullName: name, // Assuming 'name' is a string like "John Doe"
+      age,
       gender,
       contactInfo,
       medicalHistorySummary,
       emergencyContact,
       status,
       location,
+      room,
+      condition,
+      additionalInfo,
+      
+
     });
+    console.log("Creating patient with data:", patient);
 
     const createdPatient = await patient.save();
     res.status(201).json(createdPatient);
   } catch (error) {
-    console.error('Create Patient Error:', error);
-
-    if (error.code === 11000) {
-      return res.status(400).json({ message: 'Duplicate patient profile.' });
-    }
-    if (error.name === 'ValidationError') {
-      return res.status(400).json({ message: 'Invalid patient data', errors: Object.values(error.errors).map(err => err.message) });
-    }
-    res.status(500).json({ message: 'Server error during patient creation.', error: error.message });
+    next(error)
   }
 };
 
 // @desc    Get all patients with pagination and search
 // @route   GET /api/v1/patients
 // @access  Private (Requires admin or doctor role)
-export const getAllPatients = async (req, res) => {
+export const getAllPatients = async (req, res, next) => {
   const { page = 1, limit = 10, search = '' } = req.query;
   const query = {};
 
   if (search) {
     query.$or = [
       { name: { $regex: search, $options: 'i' } },
-      // Add other fields to search if necessary, e.g., email from User model if populated
-      // { 'contactInfo.phone': { $regex: search, $options: 'i' } },
+      { 'contactInfo.phone': { $regex: search, $options: 'i' } },
     ];
   }
 
@@ -74,20 +73,16 @@ export const getAllPatients = async (req, res) => {
       totalPatients: count,
     });
   } catch (error) {
-    console.error('Get All Patients Error:', error);
-    res.status(500).json({ message: 'Server error fetching patients.' });
+    next(error);
   }
 };
 
 // @desc    Get a single patient by ID
 // @route   GET /api/v1/patients/:id
 // @access  Private (Patient can see their own, or Admin/Doctor)
-export const getPatientById = async (req, res) => {
+export const getPatientById = async (req, res, next) => {
   try {
-    const patient = await Patient.findById(req.params.id).populate(
-      'userId',
-      'firstName lastName email role avatarUrl'
-    );
+    const patient = await Patient.findById(req.params.id);
 
     if (!patient) {
       return res.status(404).json({ message: 'Patient not found.' });
@@ -95,18 +90,14 @@ export const getPatientById = async (req, res) => {
 
     res.json(patient);
   } catch (error) {
-    console.error('Get Patient By ID Error:', error);
-    if (error.kind === 'ObjectId') {
-      return res.status(404).json({ message: 'Patient not found (invalid ID format).' });
-    }
-    res.status(500).json({ message: 'Server error fetching patient.' });
+    next(error);
   }
 };
 
 // @desc    Update a patient's profile
 // @route   PUT /api/v1/patients/:id
 // @access  Private (Patient can update their own, or Admin/Doctor)
-export const updatePatient = async (req, res) => {
+export const updatePatient = async (req, res, next) => {
   try {
     const patient = await Patient.findById(req.params.id);
 
@@ -135,11 +126,7 @@ export const updatePatient = async (req, res) => {
 
     res.json(populatedPatient);
   } catch (error) {
-    console.error('Update Patient Error:', error);
-    if (error.kind === 'ObjectId') {
-      return res.status(404).json({ message: 'Patient not found (invalid ID format).' });
-    }
-    res.status(500).json({ message: 'Server error updating patient.' });
+    next(error);
   }
 };
 
@@ -158,10 +145,6 @@ export const deletePatient = async (req, res) => {
 
     res.status(204).send();
   } catch (error) {
-    console.error('Delete Patient Error:', error);
-    if (error.kind === 'ObjectId') {
-      return res.status(404).json({ message: 'Patient not found (invalid ID format).' });
-    }
-    res.status(500).json({ message: 'Server error deleting patient.' });
+    next(error);
   }
 };
