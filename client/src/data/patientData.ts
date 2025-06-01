@@ -45,9 +45,6 @@ export const patients: Patient[] = [
     condition: 'Pneumonia',
     location: {
       address: '345 Meskel Square',
-      city: 'Addis Ababa',
-      state: 'Oromia',
-      zipCode: '10012',
       coordinates: { lat: 9.005401, lng: 38.763611 },
       inHospital: false
     }
@@ -72,9 +69,6 @@ export const patients: Patient[] = [
     condition: 'Pregnancy monitoring',
     location: {
       address: '72 Bole Road',
-      city: 'Addis Ababa',
-      state: 'Addis Ababa',
-      zipCode: '10045',
       coordinates: { lat: 9.017012, lng: 38.788792 },
       inHospital: false
     }
@@ -154,9 +148,6 @@ patients.forEach(patient => {
     
     patient.location = {
       address: `${Math.floor(Math.random() * 999) + 100} ${ethiopianStreets[Math.floor(Math.random() * ethiopianStreets.length)]}`,
-      city: ethiopianCities[Math.floor(Math.random() * ethiopianCities.length)],
-      state: ethiopianStates[Math.floor(Math.random() * ethiopianStates.length)],
-      zipCode: `${10000 + Math.floor(Math.random() * 90000)}`,
       coordinates: { 
         lat: 9.145 + (Math.random() - 0.5) * 2,  // Ethiopia approximate coordinates
         lng: 38.765 + (Math.random() - 0.5) * 2

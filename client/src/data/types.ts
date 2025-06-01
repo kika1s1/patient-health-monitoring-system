@@ -14,6 +14,12 @@ export interface Patient {
     coordinates: { lat: number; lng: number };
     inHospital: boolean;
   };
+  recentVisits?: {
+    date: string;
+    reason: string;
+    doctor: string;
+  }[]
+
   
 }
 

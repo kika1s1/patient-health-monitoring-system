@@ -77,6 +77,23 @@ const patientSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    recentVisits: [
+      {
+        date: {
+          type: Date,
+          required: true,
+        },
+        reason: {
+          type: String,
+          trim: true,
+        },
+        doctor: {
+          type: String,
+          trim: true,
+        },
+      },
+    ],
+    
   },
   {
     timestamps: true, // Adds createdAt and updatedAt timestamps
