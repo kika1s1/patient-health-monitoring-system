@@ -4,7 +4,7 @@ import AppError from "../utils/AppError.js";
 import  generateToken  from "../utils/generateToken.js";
 export const signup = async (req, res, next) => {
   try {
-    const { fullName, email, password } = req.body;
+    const { fullName, email, password, role, department, specialty } = req.body;
     // check if user already exists
     // check all find is provided
     if (!fullName || !email || !password) {
@@ -28,6 +28,10 @@ export const signup = async (req, res, next) => {
       fullName,
       email,
       password: hashedPassword,
+      role: role || "doctor", // default role is doctor
+      department: department || "",
+      specialty: specialty || "",
+      profilePic: "https://randomuser.me/api/portraits/lego/1.jpg", // default profile pic
     });
     // save user to db
     // verify email 

@@ -3,7 +3,6 @@ import {
   getVitalsForPatient,
   addVitalForPatient,
 } from '../controllers/vitalController.js';
-import { protect, authorize } from '../middleware/authMiddleware.js';
 
 // The Express router option mergeParams: true is needed to access patientId from the parent router (patientRoutes.js)
 const router = express.Router({ mergeParams: true });

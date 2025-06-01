@@ -6,7 +6,6 @@ import {
   updatePatient,
   deletePatient,
 } from '../controllers/patientController.js';
-import { protect, authorize } from '../middleware/authMiddleware.js';
 import vitalRoutes from './vitalRoutes.js'; // Import vital routes
 
 const router = express.Router();

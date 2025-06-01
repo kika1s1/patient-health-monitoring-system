@@ -8,13 +8,12 @@ router.post("/signup", signup);
 
 router.post("/login", login);
 
-
-
-router.post("/logout", logout);
-
-
-
 router.get("/check", protectedRoute, checkAuth);
+
+router.get("/logout", protectedRoute, logout);
+
+
+
 
 
 

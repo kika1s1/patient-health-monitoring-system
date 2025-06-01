@@ -6,29 +6,24 @@ import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff, Mail } from "lucide-react";
+
 import ThemeToggle from "@/components/ThemeToggle";
-import { toast } from "@/components/ui/sonner";
+import { useAuthStore } from "../store/useAuthStore";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const { login, isLoggingIn } = useAuthStore();
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // In a real app, this would connect to an authentication service
-    if (email && password) {
-      toast.success("Login successful", {
-        description: "Welcome back to the Health Dashboard!"
-      });
-      navigate("/");
-    } else {
-      toast.error("Login failed", {
-        description: "Please enter your email and password."
-      });
-    }
+    login(formData)
   };
 
   return (
@@ -53,8 +48,8 @@ const Login = () => {
                   id="email" 
                   type="email" 
                   placeholder="name@example.com" 
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="pl-10"
                   required
                 />
@@ -73,8 +68,8 @@ const Login = () => {
                   id="password" 
                   type={showPassword ? "text" : "password"} 
                   placeholder="••••••••" 
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={formData.password}
+                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   className="pl-10"
                   required
                 />

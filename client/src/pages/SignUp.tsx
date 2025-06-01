@@ -7,31 +7,45 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff, Mail, User } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
-import { toast } from "@/components/ui/sonner";
 import { Separator } from "@/components/ui/separator";
+import { useAuthStore } from "../store/useAuthStore";
+import { toast } from "@/components/ui/sonner";
+
 
 const SignUp = () => {
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+    const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    role:"",
+    department: "",
+    specialty: "",
+
+  });
+
+
+  const { signup, isSigningUp } = useAuthStore();
+
+  const validateForm = () => {
+    if (!formData.fullName.trim()) return toast.error("Full name is required");
+    if (!formData.email.trim()) return toast.error("Email is required");
+    if (!/\S+@\S+\.\S+/.test(formData.email)) return toast.error("Invalid email format");
+    if (!formData.password) return toast.error("Password is required");
+    if (formData.password.length < 6) return toast.error("Password must be at least 6 characters");
+
+    return true;
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // In a real app, this would connect to an authentication service
-    if (fullName && email && password) {
-      toast.success("Account created successfully", {
-        description: "Welcome to the Health Dashboard!"
-      });
-      navigate("/");
-    } else {
-      toast.error("Registration failed", {
-        description: "Please complete all required fields."
-      });
-    }
+
+    const success = validateForm();
+
+    if (success === true) signup(formData);
   };
+
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-background">
@@ -55,8 +69,8 @@ const SignUp = () => {
                   id="fullName" 
                   type="text" 
                   placeholder="John Doe" 
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
+                  value={formData.fullName}
+                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                   className="pl-10"
                   required
                 />
@@ -70,8 +84,8 @@ const SignUp = () => {
                   id="email" 
                   type="email" 
                   placeholder="name@example.com" 
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="pl-10"
                   required
                 />
@@ -85,8 +99,8 @@ const SignUp = () => {
                   id="password" 
                   type={showPassword ? "text" : "password"} 
                   placeholder="Create a strong password" 
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={formData.password}
+                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   className="pl-10"
                   required
                 />

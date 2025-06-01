@@ -20,13 +20,41 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: [ 'doctor', 'admin'],
       default: 'doctor',
     },
     avatarUrl: {
       type: String,
       default:"https://randomuser.me/api/portraits/lego/1.jpg"
     },
+    about: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    age:{
+      type: Number,
+      default: 0,
+    },
+    experience: {
+      type: Number,
+      default: 0
+    },
+    education: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    department: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    Specialty: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    
   },
   {
     timestamps: true, // Adds createdAt and updatedAt timestamps
