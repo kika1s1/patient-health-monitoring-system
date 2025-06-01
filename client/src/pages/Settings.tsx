@@ -10,19 +10,20 @@ import { Separator } from "@/components/ui/separator";
 import Header from '@/components/Header';
 import DashboardFooter from '@/components/layout/DashboardFooter';
 import { useToast } from '@/components/ui/use-toast';
-
+import ThemeToggle from "../components/ThemeToggle"
+import { useAuthStore } from "../store/useAuthStore";
 const Settings = () => {
   const { toast } = useToast();
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [emailNotifications, setEmailNotifications] = useState(true);
-  const [darkMode, setDarkMode] = useState(false);
+  const {authUser} = useAuthStore();
   const [formData, setFormData] = useState({
-    name: "Dr. Tamirat Kebede",
-    email: "tamirat.kebede@codoctor.com",
-    phoneNumber: "+1 (555) 123-4567",
-    department: "Cardiology",
-    specialty: "Interventional Cardiology",
-    bio: "Experienced cardiologist with over 10 years of practice in interventional cardiology. Specializing in modern cardiac care techniques and patient-focused treatment plans."
+    name: authUser?.fullName,
+    email: authUser?.email,
+    phoneNumber: authUser?.phoneNumber,
+    department: authUser?.department,
+    specialty: authUser?.specialty,
+    bio: authUser?.bio,
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -195,10 +196,8 @@ const Settings = () => {
                         <p className="font-medium">Dark Mode</p>
                         <p className="text-sm text-muted-foreground">Enable dark mode for the application</p>
                       </div>
-                      <Switch
-                        checked={darkMode}
-                        onCheckedChange={setDarkMode}
-                      />
+                        <ThemeToggle />
+                      
                     </div>
                     
                     <Button onClick={handleSaveAppearance}>Save Preferences</Button>

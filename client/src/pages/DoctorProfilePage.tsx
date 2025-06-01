@@ -4,23 +4,28 @@ import { useLocation } from 'react-router-dom';
 import Header from '@/components/Header';
 import DoctorProfile from '@/components/doctor/DoctorProfile';
 import { useToast } from '@/components/ui/use-toast';
+import { useAuthStore } from "../store/useAuthStore";
 
 const DoctorProfilePage = () => {
+  const { authUser } = useAuthStore();
+
   const { toast } = useToast();
   const [doctor, setDoctor] = useState({
-    id: "current-user",
-    name: "Dr. Tamirat Kebede",
-    email: "tamirat.kebede@codoctor.com",
-    role: "Cardiologist",
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
-    department: "Cardiology",
-    specialty: "Interventional Cardiology",
-    age: 42,
-    bio: "Dr. Tamirat Kebede is a board-certified cardiologist with over 15 years of experience in interventional cardiology. She specializes in treating complex coronary artery diseases and structural heart conditions.",
-    experience: 15,
-    education: "MD from Harvard Medical School, Cardiology Fellowship at Johns Hopkins Hospital"
+    id: authUser?.id,
+    name: authUser?.fullName ,
+    email: authUser?.email || "N/A",
+    role: authUser?.role || "Doctor",
+    avatar: authUser?.avatarUrl,
+    phoneNumber: authUser?.phoneNumber || "N/A",
+    department: authUser?.department || "N/A",
+    specialty: authUser?.specialty || "N/A",
+    age: authUser?.age,
+    bio: authUser?.bio || "N/A",
+    experience: authUser?.experience ,
+    education: authUser?.education || "N/A",
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleDoctorUpdate = (updatedDoctor: any) => {
     setDoctor(updatedDoctor);
     toast({

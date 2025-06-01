@@ -11,7 +11,12 @@ interface AuthUser {
   role: string;
   department: string;
   specialty: string;
-  avatarUrl?: string; // Optional field for user avatar
+  avatarUrl: string; // Optional field for user avatar
+  phoneNumber: string; // Optional field for user phone number
+  bio: string; 
+  age: number; // Optional field for user age
+  experience: number; // Optional field for user experience
+  education: string; // Optional field for user education
 
   // Add more fields as needed
 }

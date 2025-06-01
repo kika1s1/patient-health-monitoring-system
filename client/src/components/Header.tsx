@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Layout, MessageSquare } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
@@ -19,12 +19,12 @@ const Header: React.FC<HeaderProps> = ({ title = "PHMS" }) => {
   
   const currentUser = {
     id: authUser?.id || "1",
-    name: authUser?.fullName || "Tamirat Kebede",
-    email: authUser?.email || "",
-    role: authUser?.role || "Cardiologist",
-    avatar: authUser?.avatarUrl || "https://avatars.githubusercontent.com/u/12345678?v=4",
-    department: authUser?.department || "Cardiology",
-    specialty: authUser?.specialty || "Interventional Cardiology",
+    name: authUser?.fullName,
+    email: authUser?.email,
+    role: authUser?.role,
+    avatar: authUser?.avatarUrl,
+    department: authUser?.department,
+    specialty: authUser?.specialty,
   };
 
   const handleLogout = () => {

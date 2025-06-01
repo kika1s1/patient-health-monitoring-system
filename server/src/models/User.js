@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       default:"https://randomuser.me/api/portraits/lego/1.jpg"
     },
-    about: {
+    bio: {
       type: String,
       default: '',
       trim: true,
@@ -49,7 +49,7 @@ const userSchema = new mongoose.Schema(
       default: '',
       trim: true,
     },
-    Specialty: {
+    specialty: {
       type: String,
       default: '',
       trim: true,

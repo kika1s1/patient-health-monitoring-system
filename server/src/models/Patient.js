@@ -2,9 +2,7 @@ import mongoose from 'mongoose';
 
 const patientSchema = new mongoose.Schema(
   {
-    // Name can be derived from User model, but keeping it here for flexibility
-    // If it's always the same as User, consider removing and populating from User
-    name: {
+    fullName: {
       type: String,
       trim: true,
     },
@@ -64,8 +62,15 @@ const patientSchema = new mongoose.Schema(
         type: Boolean,
         default: false,
       },
+      age: {
+        type: Number,
+        min: 0, // Ensures age is a non-negative number
+      },
+      additionalInfo: {
+        type: String,
+        trim: true,
+      },
     },
-    // Consider adding other fields as per BACKEND_API_DOCUMENTATION.MD if more details are there
   },
   {
     timestamps: true, // Adds createdAt and updatedAt timestamps
