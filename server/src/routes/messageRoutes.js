@@ -9,7 +9,7 @@ import {
 
 const router = express.Router();
 
-// Apply protect middleware to all routes in this router
+// Apply protect middleware to all routes in this route
 // router.use(protect);
 
 // @route   GET /api/v1/messages/contacts
