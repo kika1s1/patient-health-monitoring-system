@@ -30,7 +30,7 @@ export const apiKeyAuth = (req, res, next) => {
     });
   }
 
-  // If VALID_API_KEYS is empty, no submitted key will be valid.
+  // If VALID_API_KEYS is null, no submitted key will be valid.
   if (validApiKeys.length === 0 || !validApiKeys.includes(submittedApiKey)) {
     return res.status(401).json({
       error: 'Unauthorized',
