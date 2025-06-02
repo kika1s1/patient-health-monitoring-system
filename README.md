@@ -17,7 +17,7 @@ A modern, web-based dashboard for monitoring patient health metrics in real time
 
 ---
 
-## Features
+## key Features
 
 - **Patient Search & List**: Quickly find and browse patient records (`PatientSearch.tsx`, `PatientList.tsx`).
 - **Detailed Patient View**: Inspect individual patient profiles, medical info, visits, and location (`PatientInfo.tsx`, `PatientProfile.tsx`, `PatientLocationMap.tsx`, `PatientVisits.tsx`).
