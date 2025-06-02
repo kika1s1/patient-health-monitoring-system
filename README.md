@@ -1,4 +1,4 @@
-# Patient Health Monitoring System (PHMS)
+# Patient Health Monitoring System (PHMS).
 
 A modern, web-based dashboard for monitoring patient health metrics in real time. PHMS delivers an intuitive interface for clinicians and caregivers to search, view, and analyze patient data through interactive charts, conversational AI, and a responsive design.
 
