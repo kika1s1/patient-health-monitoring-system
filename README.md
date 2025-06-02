@@ -20,7 +20,7 @@ A modern, web-based dashboard for monitoring patient health metrics in real time
 ## key Features
 
 - **Patient Search & List**: Quickly find and browse patient records (`PatientSearch.tsx`, `PatientList.tsx`).
-- **Detailed Patient View**: Inspect individual patient profiles, medical info, visits, and location (`PatientInfo.tsx`, `PatientProfile.tsx`, `PatientLocationMap.tsx`, `PatientVisits.tsx`).
+- **Detailed Patient View**: Inspect individual patient profiles, medical info, visits, and location. (`PatientInfo.tsx`, `PatientProfile.tsx`, `PatientLocationMap.tsx`, `PatientVisits.tsx`).
 - **Health Metrics Dashboard**: Visualize vital signs with line charts and metric cards (`HealthMetricsGrid.tsx`, `LineChart.tsx`, `MetricCard.tsx`, `CombinedVitalsChart.tsx`, `ECGChart.tsx`).
 - **AI-Driven Assistant**: Ask natural-language queries about patient data (`AIAssistant.tsx`).
 - **Messaging & Notifications**: Engage in patient-centric chat and alerts (`PatientChat.tsx`, `NotificationPanel.tsx`).
