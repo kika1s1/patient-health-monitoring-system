@@ -7,7 +7,7 @@ import {
 // The Express router option mergeParams: true is needed to access patientId from the parent router (patientRoutes.js)
 const router = express.Router({ mergeParams: true });
 
-// Apply protect middleware to all routes in this router, as they involve sensitive patient data
+// protect middleware to all routes in this router, as they involve sensitive patient data
 // router.use(protect);
 
 // @route   GET /api/v1/patients/:patientId/vitals

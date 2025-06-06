@@ -147,7 +147,7 @@ export const updateProfile = async (req, res, next) => {
     const { password: excludedPassword, ...userInfo } = updatedUser._doc;
     // upsert stream user
    
-    // send token in cookie
+    // send token in cookies
 
     res.status(200).json({
       success: true,
