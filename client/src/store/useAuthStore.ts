@@ -65,7 +65,7 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
     role: "doctor", // Default role for the auth user
     department: "Cardiology", // Default department for the auth user
     specialty: "Cardiologist", // Default specialty for the auth user
-    avatarUrl: "", // Optional field for user avatar
+    avatarUrl: "https://randomuser.me/api/portraits/men/32.jpg", // Optional field for user avatar
     phoneNumber: "", // Optional field for user phone number
     bio: "",
     age: 0, // Optional field for user age
