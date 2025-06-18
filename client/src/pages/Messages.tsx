@@ -220,9 +220,6 @@ const Messages: React.FC = () => {
                 avatar: selectedContact.avatar,
                 location: {
                   address: '',
-                  city: '',
-                  state: '',
-                  zipCode: '',
                   coordinates: { lat: 0, lng: 0 },
                   inHospital: false
                 }

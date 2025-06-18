@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter,Navigate, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import { Loader } from "lucide-react";
 import NotFound from "./pages/NotFound";
@@ -20,16 +20,16 @@ const queryClient = new QueryClient();
 
 const App = () => {
   const {authUser, checkAuth, isCheckingAuth} = useAuthStore();
-    useEffect(()=>{
-      checkAuth();
-    }, [checkAuth]);
-    if(isCheckingAuth && !authUser){
-      return (
-        <div className="flex justify-center items-center h-screen">
-          <Loader className="size-10 animate-spin" />
-        </div>
-      )
-    }
+    // useEffect(()=>{
+    //   checkAuth();
+    // }, [checkAuth]);
+    // if(isCheckingAuth && !authUser){
+    //   return (
+    //     <div className="flex justify-center items-center h-screen">
+    //       <Loader className="size-10 animate-spin" />
+    //     </div>
+    //   )
+    // }
     console.log("Auth User:", authUser);
   return (
     <ThemeProvider>
@@ -40,12 +40,12 @@ const App = () => {
             <Sonner />
             <BrowserRouter>
               <Routes>
-                <Route path="/" element={authUser ? <Index/> : <Navigate to="/login" />} />
-                <Route path="/login" element={!authUser ? <Login/> : <Navigate to="/" />} />
-                <Route path="/signup" element={!authUser ? <SignUp/> : <Navigate to="/" />} />
-                <Route path="/profile" element={authUser ? <DoctorProfilePage />:<Navigate to="/login" />} />
-                <Route path="/settings" element={authUser ?<Settings />:<Navigate to="/login" />} />
-                <Route path="/messages" element={authUser ?<Messages />:<Navigate to="/login" />} />
+                <Route path="/" element={ <Index/> } />
+                <Route path="/login" element={ <Login/>} />
+                <Route path="/signup" element={<SignUp/> } />
+                <Route path="/profile" element={<DoctorProfilePage />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/messages" element={<Messages />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
